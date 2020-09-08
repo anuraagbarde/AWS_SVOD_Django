@@ -1,0 +1,48 @@
+{% extends 'accounts/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block headcontent %}
+<head>
+  {{ form.media }}
+</head>
+{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<form method="post">
+  {% csrf_token %}
+  <div class="form-row">
+    <div class="form-group col-md-6 mb-0">
+      <p>Note: The file name should only contain letters and numbers</p>
+      {{ form.video_file }}
+      <!-- {{form.errors}} -->
+    </div>
+    <div  style="color: red;" class="form-group col-md-6 mb-0">
+
+      {% if "Enter a valid URL." in form.errors.video_file %}
+        <strong>The file name should only contain letters and numbers, NO SPACES or SPECIAL CHARACTERS!</strong>
+      {% elif "The file name should only contain letters and numbers, NO SPACES or SPECIAL CHARACTERS!" in form.errors.video_file %}
+        <strong>The file name should only contain letters and numbers, NO SPACES or SPECIAL CHARACTERS!</strong>
+      
+      {% elif "Video with this Video file already exists." in form.errors.video_file %}
+        <strong>Video with this Video file already exists.</strong>
+          <p style="color: black;">Change the file name or recheck if your reuploading the same file</p>
+      {% elif form.errors %}
+        {{form.errors}}
+      {% endif %}
+      </div>
+    <div class="form-group col-md-6 mb-0">
+      <br>
+      {{ form.video_title | as_crispy_field }}
+      
+      {{ form.comments | as_crispy_field }}
+
+      {{ form.classroom | as_crispy_field }}
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Post Video</button>
+
+</form>
+{% endblock %}

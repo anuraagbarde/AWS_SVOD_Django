@@ -1,0 +1,60 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div  class="col-md-8 col-sm-10 col-12">
+      <br>
+      {% if not object %}
+        <p>This is not a valid classroom!</p>
+
+      {% else %}
+      <h3 class="display-4">{{object.classroom_name}}</h3>
+      <br>
+      
+      <dl class="row">
+        <dt class="col-sm-3">Teacher:</dt>
+        <dd class="col-sm-9">{{object.classroom_teacher.teacher.full_name}}</dd>
+        
+        <dt class="col-sm-3">Created at:</dt>
+        <dd class="col-sm-9">{{object.classroom_created_time|date}}</dd>
+        
+        <dt class="col-sm-3">Class Code:</dt>
+        <dd id="classroom_uuid" class="col-sm-9">{{object.small_uuid}}</dd>
+      </dl>
+      <button onclick="copyElementText('classroom_uuid')" class="js-textareacopybtn btn btn-outline-info mt-1 mb-3" >Copy Code</button>
+      <br>
+      <a href="{% url 'video_create' %}" class="btn btn-primary my-3">Post New Video</a>
+      
+      
+      <script>
+        function copyElementText(id) {
+          var text = document.getElementById(id).innerText;
+          var elem = document.createElement("textarea");
+          document.body.appendChild(elem);
+          elem.value = text;
+          elem.select();
+          document.execCommand("copy");
+          document.body.removeChild(elem);
+      }
+      </script>
+      
+      
+      {% endif %}
+      
+      <br>
+
+      <ul class="list-group">
+        {% for video in videos %}
+          <a href="{% url 'video_detail' video.pk %}" class="list-group-item list-group-item-action flex-column align-items-">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1 ">{{video.filename_without_extension}}</h5>
+              <p id="classroom_uuid">{{video.video_created_time}}</p>
+              
+            </div>
+          </a>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </div>
+{% endblock %}

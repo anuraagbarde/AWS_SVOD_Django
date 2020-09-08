@@ -1,0 +1,35 @@
+{% extends 'accounts/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {% for error in form.non_field_errors %}
+        <p{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+  <div class="row">
+    <div >
+      Note:
+      <ul>
+        <li>To create classroom Login as a Teacher</li>
+        <li>To join classroom Login as a student</li>
+      </ul>
+      <h2>Log in</h2>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form.username|as_crispy_field }}
+        {{ form.password|as_crispy_field }}
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+        <a href="{% url 'teacher_signup' %}" class="btn btn-outline-secondary my-3">New Teacher</a>
+        <a href="{% url 'student_signup' %}" class="btn btn-outline-secondary my-3">New Student</a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'accounts/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div>
+    <div  class="container">
+      <p class="display-4">Hello {{user.teacher.full_name}}</p>
+      <h3>Make a new Clasroom!</h3>
+      <br>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Create Classroom</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

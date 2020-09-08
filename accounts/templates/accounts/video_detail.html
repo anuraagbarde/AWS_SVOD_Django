@@ -1,0 +1,31 @@
+{% extends 'accounts/base.html' %}
+{% block headcontent %}
+    <script src="https://cdn.jwplayer.com/libraries/WRCNP8ST.js"></script>
+
+    
+{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<div class="container" style="background-color: aliceblue;">
+    <h4 class="display-4 container-fluid"> {{object.video_title}} </h4>
+
+
+    <div id="jwplayer"></div>
+    <script type="text/JavaScript">
+        jwplayer("jwplayer").setup({ 
+            file: "{{video_url}}",
+            width: "80%",
+            aspectratio: "16:9"
+        });
+    </script>
+    <br>
+
+    <div class="lead">
+        <strong>Comments:</strong>
+        <p>{{object.comments}}</p>
+    </div>
+    
+</div>
+{% endblock %}

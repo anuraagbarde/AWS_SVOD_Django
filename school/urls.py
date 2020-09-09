@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts.views import  *
-from django.contrib.auth import views as v
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,10 +30,10 @@ urlpatterns = [
     path('detailclassroom/<int:pk>', ClassroomDetailView.as_view(), name='classroom_detail'),
 
     path('register/video', VideoCreateView.as_view(), name='video_create'),
+    path('register/video<int:classroom_pk>', VideoCreateView.as_view(), name='video_create'),
     path('v/<int:pk>', VideoDetailView.as_view(), name='video_detail'),
 
     path('logoutsuccess/', LogoutSuccessView, name='logout_success'),
     path('s3direct/', include('s3direct.urls')),
-    # path('accounts/logout/',v.LogoutView.as_view(next_page='logoutsuccess'),name="logout"),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

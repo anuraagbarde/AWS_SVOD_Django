@@ -12,7 +12,7 @@
       <br>
       
       <dl class="row">
-        <dt class="col-sm-3">Teacher:</dt>
+        <dt class="col-sm-3">Teacher name:</dt>
         <dd class="col-sm-9">{{object.classroom_teacher.teacher.full_name}}</dd>
         
         <dt class="col-sm-3">Created at:</dt>
@@ -23,8 +23,9 @@
       </dl>
       <button onclick="copyElementText('classroom_uuid')" class="js-textareacopybtn btn btn-outline-info mt-1 mb-3" >Copy Code</button>
       <br>
-      <a href="{% url 'video_create' %}" class="btn btn-primary my-3">Post New Video</a>
-      
+      {% if user.is_teacher %}
+      <a href="{% url 'video_create' classroom_pk=object.pk %}" class="btn btn-primary my-3">Post New Video</a>
+      {% endif %}
       
       <script>
         function copyElementText(id) {

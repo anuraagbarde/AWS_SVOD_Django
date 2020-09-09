@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from django.contrib.auth import login
+from django.shortcuts import get_object_or_404
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -101,7 +102,7 @@ class ClassroomJoinView(FormView):
         qs.classroom_student.add(self.request.user)
         return redirect('list_classrooms')
     
-@method_decorator([login_required], name='dispatch')
+@method_decorator([login_required,teacher_required], name='dispatch')
 class VideoCreateView(CreateView):
     model = Video
     form_class = VideoCreateForm
@@ -110,7 +111,9 @@ class VideoCreateView(CreateView):
     
     def form_valid(self, form):
         video_form = form.save(commit=False)
-        # video_form.classroom = self.request.
+        teachers_classrooms = Classroom.objects.filter(classroom_teacher=self.request.user)
+        classroom_pk = self.kwargs['classroom_pk']
+        video_form.classroom = get_object_or_404(teachers_classrooms, pk = classroom_pk )
         video_form.save()
         return redirect('list_classrooms')
 

@@ -72,26 +72,28 @@ class Video(models.Model):
 
     @property
     def filename(self):
-        if self.video_file.startswith('http'):
-            cut = len(settings.AWS_S3_ENDPOINT_URL)+len('/') + len(settings.AWS_STORAGE_BUCKET_NAME)+len('/')
-            cut += len('input/')  # obtained from primary destination
-            return self.video_file[cut:]
-        else:
-            return self.video_file
+        # if self.video_file.startswith('http'):
+        #     cut = len(settings.AWS_S3_ENDPOINT_URL)+len('/') + len(settings.AWS_STORAGE_BUCKET_NAME)+len('/')
+        #     cut += len('input/')  # obtained from primary destination
+        #     return self.video_file[cut:]
+        # else:
+        #     return self.video_file
+        return self.video_file
     
     @property
     def filename_without_extension(self):
 
         filename_with_extension = self.filename
-        cut_file_extension_index = 0
-        for c in reversed(filename_with_extension):
-            cut_file_extension_index+=1
-            if c=='.':
-                break
-        if cut_file_extension_index<6:
-            return filename_with_extension[:cut_file_extension_index]
-        else:
-            return filename_with_extension
+        # cut_file_extension_index = 0
+        # for c in reversed(filename_with_extension):
+        #     cut_file_extension_index+=1
+        #     if c=='.':
+        #         break
+        # if cut_file_extension_index<6:
+        #     return filename_with_extension[:cut_file_extension_index]
+        # else:
+        #     return filename_with_extension
+        return filename_with_extension
 
     def __str__(self):
         return self.filename_without_extension

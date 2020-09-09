@@ -13,7 +13,7 @@
       {% endif %}
         <br>
       {% if not classrooms %}
-        <p>You dont have any classrooms!</p>
+        <p class="lead my-3">You dont have any classrooms!</p>
       {% else %}
           <br>
           <ul class="list-group">
@@ -21,7 +21,7 @@
               <a href="{% url 'classroom_detail' classroom.pk %}" class="list-group-item list-group-item-action flex-column align-items-">
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1 ">{{classroom.classroom_name}}</h5>
-                  <p id="classroom_uuid">{{classroom.small_uuid}}</p>
+                  <p>{{classroom.classroom_created_time | date}}</p>
                   
                 </div>
               </a>

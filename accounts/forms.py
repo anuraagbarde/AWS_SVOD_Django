@@ -131,4 +131,4 @@ class VideoCreateForm(forms.ModelForm):
     
     class Meta:
         model = Video
-        fields = ('video_title','video_file','comments', 'classroom')
+        fields = ('video_title','video_file','comments')
